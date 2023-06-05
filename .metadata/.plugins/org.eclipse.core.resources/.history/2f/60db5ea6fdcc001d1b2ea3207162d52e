@@ -1,0 +1,98 @@
+
+
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.*;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+/**
+ * Servlet implementation class StudentServlet
+ */
+@WebServlet("/StudentServlet")
+public class StudentServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public StudentServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//get student ID from session
+		 String studentId = (String) request.getSession().getAttribute("studentID");
+		 try {
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				// Get a database connection.
+				Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/student_assessment_system", "root", "wqfzjnzx0830UK@");
+				System.out.println("database connected");
+				
+				 // Prepare a SQL statement to retrieve the courses the student is enrolled in
+		        String sql = "SELECT course_ID, course_name FROM user_table INNER JOIN course_table ON user_table.course_ID=course_table.id WHERE user_ID=?";
+		        PreparedStatement stmt = connection.prepareStatement(sql);
+		        stmt.setString(1, studentId);
+		        
+		     // Execute the query and store the results in a ResultSet object
+		        ResultSet rs = stmt.executeQuery();
+		        
+		     // Create a Map to store the courses
+		     Map<Integer, String> courses = new TreeMap<>();
+		     
+		    // Loop through the ResultSet and add the courses to the Map
+		        while (rs.next()) {
+		            int courseId = rs.getInt("course_ID");
+		            String courseName = rs.getString("course_name");
+		            courses.put(courseId, courseName);
+		        }
+		     // If the student is not enrolled in any course, retrieve the list of all available courses from the database
+		        if (courses.isEmpty()) {
+		            sql = "SELECT course_ID, course_name, semester FROM course_table";
+		            stmt = connection.prepareStatement(sql);
+		            rs = stmt.executeQuery();
+
+		            while (rs.next()) {
+		                int courseId = rs.getInt("course_ID");
+		                String courseName = rs.getString("course_name");
+		                courses.put(courseId, courseName);
+		            }
+		        }
+		     // Set the courses attribute in the session and forward to the student-dashboard.jsp page
+		        request.getSession().setAttribute("courses", courses);
+		        request.getRequestDispatcher("student.jsp").forward(request, response);
+		     // Close the resources
+		        rs.close();
+		        stmt.close();
+		        connection.close();
+
+	}catch (SQLException e){
+        e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}

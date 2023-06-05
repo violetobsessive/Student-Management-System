@@ -1,0 +1,13 @@
+2023-03-23 11:11:04,392 [Worker-6: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2023-03-26 23:25:52,592 [Worker-61: http://downloads.sourceforge.net/project/sapnweclipse/updates/features/com.sap.netweaver.porta.ide.eclipse.feature_0.6.0.200912021058.jar] INFO  o.a.h.c.h.i.c.HttpRequestRetryExec - Recoverable I/O exception (org.apache.hc.core5.http.NoHttpResponseException) caught when processing request to {}->http://deac-ams.dl.sourceforge.net:80
+2023-03-27 17:05:07,184 [Worker-8: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2023-03-28 10:28:02,429 [Worker-14: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2023-04-01 01:21:13,163 [main] INFO  org.eclipse.jetty.server.Server - jetty-10.0.13; built: 2022-12-07T20:13:20.134Z; git: 1c2636ea05c0ca8de1ffd6ca7f3a98ac084c766d; jvm 18.0.2.1+1-1
+2023-04-01 01:21:13,194 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2023-04-01 01:21:13,241 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@47a618d8{/wse,null,AVAILABLE}
+2023-04-01 01:21:13,311 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@48a42a7d{HTTP/1.1, (http/1.1)}{0.0.0.0:63836}
+2023-04-01 01:21:13,324 [main] INFO  org.eclipse.jetty.server.Server - Started Server@288ecaeb{STARTING}[10.0.13,sto=0] @313505088ms
+2023-04-04 10:08:04,162 [Framework stop - Equinox Container: 03026e58-5a39-4869-9ca2-a43f067dfc05] INFO  org.eclipse.jetty.server.Server - Stopped Server@288ecaeb{STOPPING}[10.0.13,sto=0]
+2023-04-04 10:08:04,173 [Framework stop - Equinox Container: 03026e58-5a39-4869-9ca2-a43f067dfc05] INFO  o.e.jetty.server.AbstractConnector - Stopped ServerConnector@48a42a7d{HTTP/1.1, (http/1.1)}{0.0.0.0:0}
+2023-04-04 10:08:04,231 [Framework stop - Equinox Container: 03026e58-5a39-4869-9ca2-a43f067dfc05] INFO  o.e.j.server.handler.ContextHandler - Stopped o.e.j.s.ServletContextHandler@47a618d8{/wse,null,STOPPED}
+2023-04-04 10:09:50,329 [Worker-14: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.

@@ -1,0 +1,111 @@
+package Assignment3;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.servlet.RequestDispatcher;
+/**
+ * Servlet implementation class servlet1
+ */
+@WebServlet("/servlet1")
+public class servlet1 extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+    /**
+     * Default constructor. 
+     */
+    public servlet1() {
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+    
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+	 
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// Get username and password parameters from the request
+				String username = request.getParameter("username");
+				String password = request.getParameter("password");
+				
+				// Validate username and password against database
+				boolean validLogin = validateLogin(username, password);
+				
+				// If login is valid, set session attribute to store user's information
+				if (validLogin) {
+					User user = getUser(username);
+					HttpSession session = request.getSession();
+					session.setAttribute("user", user);
+					response.sendRedirect("dashboard.jsp");
+				} else {
+					// If login is invalid, display an error message
+					request.setAttribute("errorMessage", "Invalid username or password");
+					request.getRequestDispatcher("login.jsp").forward(request, response);
+				}
+			}
+			
+			private boolean validateLogin(String username, String password) {
+			    // Code to validate username and password against the database or user management system
+			    // Return true if username and password are valid, false otherwise
+			    // For example:
+			    try {
+			        // Assume we have a connection to the database
+			        String sql = "SELECT COUNT(*) FROM users WHERE username = ? AND password = ?";
+			        PreparedStatement statement = connection.prepareStatement(sql);
+			        statement.setString(1, username);
+			        statement.setString(2, password);
+			        ResultSet resultSet = statement.executeQuery();
+			        resultSet.next();
+			        int count = resultSet.getInt(1);
+			        return count == 1;
+			    } catch (SQLException e) {
+			        // Handle exception
+			        return false;
+			    }
+			}
+			
+			private User getUser(String username) {
+				// Code to get user information from the database or user management system
+			    // Return a User object with the user's information, or null if the user does not exist
+			    // For example:
+			    try {
+			        // Assume we have a connection to the database
+			        String sql = "SELECT * FROM users WHERE username = ?";
+			        PreparedStatement statement = connection.prepareStatement(sql);
+			        statement.setString(1, username);
+			        ResultSet resultSet = statement.executeQuery();
+			        if (resultSet.next()) {
+			            int id = resultSet.getInt("id");
+			            int username1 = resultSet.getInt("username");
+			            String password = resultSet.getString("password");
+			            String firstName = resultSet.getString("firstName");
+			            String lastName = resultSet.getString("lastName");
+			            // Create a new User object with the retrieved information
+			            return new User(username1,password,firstName,lastName);
+			        } else {
+			            return null;
+			        }
+			    } catch (SQLException e) {
+			        // Handle exception
+			        return null;
+			        
+			}
+	}
+

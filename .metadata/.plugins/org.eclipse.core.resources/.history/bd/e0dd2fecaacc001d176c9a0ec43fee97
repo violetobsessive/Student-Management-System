@@ -1,0 +1,33 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>Admin Page</h1>
+<p>please create new users here: </p>
+		<label for="username">Username: </label>
+		<input type="text" name="username" placeholder="@username"><br>
+		
+		<label for="password">Password: </label>
+		<input type="password" placeholder="@password" name="password"><br>
+		
+		<label for="firstName">First Name: </label>
+		<input type="firstName" placeholder="@first name" name="firstName"><br>
+		
+		<label for="lastName">Last Name: </label>
+		<input type="lastName" placeholder="@last name" name="lastName"><br>
+		
+		<label for="phone">Contact number: </label>
+		<input type="phone" placeholder="@phone number" name="phone"><br>
+		
+		<label for="role">Role: </label>
+		<input type="role" placeholder="@student/teacher" name="role"><br>
+		
+		<input type="submit" value="Create">
+	</form>
+</body>
+</html>
